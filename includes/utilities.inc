@@ -41,9 +41,13 @@ function islandora_marcxml_transform_mods_to_marcxml(AbstractObject $object) {
     drupal_not_found();
   }
   $mods_str = trim($object['MODS']->content);
-  return islandora_marcxml_run_xsl_transform(array(
+  $marcxml = islandora_marcxml_run_xsl_transform(array(
     'input' => $mods_str,
     'xsl' => drupal_get_path('module', 'islandora_marcxml') . '/xsl/MODS2MARC21slim.xsl',
+  ));
+  return islandora_marcxml_run_xsl_transform(array(
+    'input' => $marcxml,
+    'xsl' => drupal_get_path('module', 'islandora_marcxml') . '/xsl/MARC21slimOrderByTag.xsl',
   ));
 }
 
